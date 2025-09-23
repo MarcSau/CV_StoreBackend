@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "K4EoCCiEeJ8=",
+  "dgSpecHash": "0RnqfOi+ELc=",
   "success": true,
   "projectFilePath": "C:\\Users\\Marc-Work\\Desktop\\Projectes\\CV_StoreBackend\\StoreBackend.Api\\StoreBackend.Api.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Marc-Work\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\Marc-Work\\.nuget\\packages\\minimalapis.extensions\\0.11.0\\minimalapis.extensions.0.11.0.nupkg.sha512",
+    "C:\\Users\\Marc-Work\\.nuget\\packages\\minivalidation\\0.8.0\\minivalidation.0.8.0.nupkg.sha512"
+  ],
   "logs": []
 }
