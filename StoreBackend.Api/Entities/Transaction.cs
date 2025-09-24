@@ -8,7 +8,7 @@ public class Transaction
     [Key]
     public int ID { get; set; }
     public int productID { get; set; }
-    public Product? product { get; set; }
+    public Product? Product { get; set; }
     public int amount;
     public double price;
 }
