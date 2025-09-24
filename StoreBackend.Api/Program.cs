@@ -8,4 +8,5 @@ builder.Services.AddSqlite<StoreContext>(connString);
 
 var app = builder.Build();
 app.MapProductEndpoints();
+await app.MigrateDbAsync();
 app.Run();
