@@ -8,25 +8,34 @@ namespace StoreBackend.Api.Endpoints;
 
 public static class ProductEndpoints
 {
+    const string GetNameEndpointName = "GetProduct";
+
     public static void MapProductEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("product").WithParameterValidation();
 
-        group.MapPut("/", (CreateProductDTO newProduct, StoreContext dbContext) =>
+        group.MapPost("/", (CreateProductDTO newProductDto, StoreContext dbContext) =>
         {
+            Product product = newProductDto.ToProductEntity();
 
+            dbContext.Products.Add(product);
+            dbContext.SaveChanges();
+
+            var dbEntry = dbContext.Products.Include(entry => entry.ProductType).Where(entry => entry.ID == product.ID).FirstOrDefault();
+
+            return Results.CreatedAtRoute(GetNameEndpointName, new { id = product.ID }, dbEntry.ToProductDTO());
         });
 
         group.MapGet("/{id}", (int id, StoreContext dbContext) =>
         {
             var product = dbContext.Products.Include(product => product.ProductType).Where(product => product.ID == id).FirstOrDefault();
-            
+
             if (product == null)
             {
                 return Results.NotFound();
             }
 
             return Results.Ok(product.ToProductDTO());
-        });
+        }).WithName(GetNameEndpointName);
     }
 }
