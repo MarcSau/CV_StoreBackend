@@ -31,4 +31,16 @@ public static class ProductMapping
             productTypeId = productDto.productType
         };
     }
+
+    public static Product ToProductEntity(this UpdateProductDTO productDto)
+    {
+        return new Product()
+        {
+            ID = productDto.id,
+            Name = productDto.name,
+            Price = productDto.price,
+            CurrentStock = productDto.currentStock,
+            productTypeId = productDto.productType
+        };
+    }
 }

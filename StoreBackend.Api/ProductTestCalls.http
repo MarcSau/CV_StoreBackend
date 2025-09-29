@@ -16,4 +16,18 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5278/product/2
+PUT http://localhost:5278/product/
+Content-Type: application/json
+
+{
+    "id": 2,
+    "name": "SUPER House of Leaves",
+    "initialStock": 10,
+    "price": 30.99,
+    "productType": 2
+}
+
+
+###
+
+DELETE http://localhost:5278/product/4
