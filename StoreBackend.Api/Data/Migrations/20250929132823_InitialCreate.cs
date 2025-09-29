@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -34,17 +35,39 @@ namespace StoreBackend.Api.Data.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     CurrentStock = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<double>(type: "REAL", nullable: false),
-                    ProductType = table.Column<int>(type: "INTEGER", nullable: false),
-                    typeID = table.Column<int>(type: "INTEGER", nullable: true)
+                    productTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Products_ProductTypes_typeID",
-                        column: x => x.typeID,
+                        name: "FK_Products_ProductTypes_productTypeId",
+                        column: x => x.productTypeId,
                         principalTable: "ProductTypes",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transactions",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
+                    amount = table.Column<int>(type: "INTEGER", nullable: false),
+                    price = table.Column<double>(type: "REAL", nullable: false),
+                    date = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transactions", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -60,15 +83,28 @@ namespace StoreBackend.Api.Data.Migrations
                     { 6, "Other" }
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_typeID",
+            migrationBuilder.InsertData(
                 table: "Products",
-                column: "typeID");
+                columns: new[] { "ID", "CurrentStock", "Name", "Price", "productTypeId" },
+                values: new object[] { 1, 25, "DnD 2025 Rulebook", 29.989999999999998, 2 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_productTypeId",
+                table: "Products",
+                column: "productTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_ProductId",
+                table: "Transactions",
+                column: "ProductId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Transactions");
+
             migrationBuilder.DropTable(
                 name: "Products");
 
