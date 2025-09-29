@@ -55,9 +55,9 @@ namespace StoreBackend.Api.Data.Migrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    amount = table.Column<int>(type: "INTEGER", nullable: false),
-                    price = table.Column<double>(type: "REAL", nullable: false),
-                    date = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                    Amount = table.Column<int>(type: "INTEGER", nullable: false),
+                    Price = table.Column<double>(type: "REAL", nullable: false),
+                    Date = table.Column<DateOnly>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

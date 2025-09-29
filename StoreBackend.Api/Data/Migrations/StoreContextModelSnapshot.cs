@@ -106,17 +106,17 @@ namespace StoreBackend.Api.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Amount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("amount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateOnly>("date")
+                    b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("price")
+                    b.Property<double>("Price")
                         .HasColumnType("REAL");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
 

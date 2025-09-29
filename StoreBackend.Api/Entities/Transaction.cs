@@ -9,7 +9,7 @@ public class Transaction
     public int ID { get; set; }
     public int ProductId { get; set; }
     public Product Product { get; set; } = null!;
-    public int amount { get; set; }
-    public double price { get; set; }
-    public DateOnly date { get; set; }
+    public int Amount { get; set; }
+    public double Price { get; set; }
+    public DateOnly Date { get; set; }
 }
