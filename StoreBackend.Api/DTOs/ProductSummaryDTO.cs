@@ -8,5 +8,6 @@ public record class ProductSummaryDTO
     [Required] string name,
     [Required] double price,
     [Required] int currentStock,
+    int productTypeId,
     string productType
 );

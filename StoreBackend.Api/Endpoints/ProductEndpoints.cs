@@ -21,9 +21,9 @@ public static class ProductEndpoints
             dbContext.Products.Add(product);
             dbContext.SaveChanges();
 
-            var dbEntry = dbContext.Products.Include(entry => entry.ProductType).Where(entry => entry.ID == product.ID).FirstOrDefault();
+            dbContext.Products.Entry(product).Reference(p => p.ProductType).Load();
 
-            return Results.CreatedAtRoute(GetNameEndpointName, new { id = product.ID }, dbEntry.ToProductDTO());
+            return Results.CreatedAtRoute(GetNameEndpointName, new { id = product.ID }, product.ToProductDTO());
         });
 
         group.MapGet("/{id}", (int id, StoreContext dbContext) =>

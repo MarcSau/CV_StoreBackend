@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 using StoreBackend.Api.Data;
 using StoreBackend.Api.DTOs;
@@ -11,8 +12,26 @@ public static class ProductTypeEndpoints
     const string GetNameEndpointName = "GetProductType";
     public static void MapProductTypeEndpoints(this WebApplication app)
     {
-        
         var group = app.MapGroup("productType").WithParameterValidation();
+
+        group.MapGet("/", (StoreContext dbContext) =>
+        {
+            var productTypes = dbContext.ProductTypes.Select(type => type.ToProductTypeDTO()).ToList();
+            return productTypes;
+        });
+        
+        group.MapGet("/{id}", (int id, StoreContext dbContext) =>
+        {
+            var product = dbContext.ProductTypes.Where(product => product.ID == id).FirstOrDefault();
+
+            if (product == null)
+            {
+                return Results.NotFound();
+            }
+
+            return Results.Ok(product.ToProductTypeDTO());
+        }).WithName(GetNameEndpointName);
+
 
         group.MapPost("/", (CreateProductTypeDTO newProductTypeDto, StoreContext dbContext) =>
         {
@@ -21,21 +40,22 @@ public static class ProductTypeEndpoints
             dbContext.ProductTypes.Add(productType);
             dbContext.SaveChanges();
 
-            var dbEntry = dbContext.ProductTypes.Where(entry => entry.ID == productType.ID).FirstOrDefault();
-
-            return Results.CreatedAtRoute(GetNameEndpointName, new { id = productType.ID }, dbEntry.ToProductTypeDTO());
+            return Results.CreatedAtRoute(GetNameEndpointName, new { id = productType.ID }, productType.ToProductTypeDTO());
         });
 
-        group.MapGet("/{id}", (int id, StoreContext dbContext) =>
+        group.MapDelete("/{id}", (int id,  StoreContext dbContext )=>
         {
-            var product = dbContext.Products.Include(product => product.ProductType).Where(product => product.ID == id).FirstOrDefault();
+            var elementToRemove = dbContext.ProductTypes.Where(product => product.ID == id).FirstOrDefault();
 
-            if (product == null)
+            if (elementToRemove == null)
             {
                 return Results.NotFound();
             }
 
-            return Results.Ok(product.ToProductDTO());
-        }).WithName(GetNameEndpointName);
+            dbContext.ProductTypes.Remove(elementToRemove);
+            dbContext.SaveChanges();
+
+            return Results.NoContent();
+        });
     }
 }

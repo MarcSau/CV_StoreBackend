@@ -7,6 +7,9 @@ var connString = builder.Configuration.GetConnectionString("Store");
 builder.Services.AddSqlite<StoreContext>(connString);
 
 var app = builder.Build();
+
 app.MapProductEndpoints();
+app.MapProductTypeEndpoints();
+
 await app.MigrateDbAsync();
 app.Run();

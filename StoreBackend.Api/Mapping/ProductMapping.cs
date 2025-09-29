@@ -14,6 +14,7 @@ public static class ProductMapping
             product.Name,
             product.Price,
             product.CurrentStock,
+            product.productTypeId,
             product.ProductType!.Name
         );
 
