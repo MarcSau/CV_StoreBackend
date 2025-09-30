@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace StoreBackend.Api.DTOs;
 
 public record class UpdateProductDTO
@@ -10,5 +9,3 @@ public record class UpdateProductDTO
     [Required] int currentStock,
     [Required] int productType
 );
-
-

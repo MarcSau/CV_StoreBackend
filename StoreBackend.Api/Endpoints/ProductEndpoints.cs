@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using StoreBackend.Api.Data;
 using StoreBackend.Api.DTOs;
@@ -16,8 +15,8 @@ public static class ProductEndpoints
 
         group.MapGet("/", (StoreContext dbContext) =>
         {
-            var products = dbContext.Products.Include(product => product.ProductType).ToList();
-            return products;
+            var products = dbContext.Products.Include(product => product.ProductType).Select(product => product.ToProductDTO()).ToList();
+            return Results.Ok(products);
         });
 
         group.MapGet("/{id}", (int id, StoreContext dbContext) =>
@@ -68,9 +67,7 @@ public static class ProductEndpoints
                 return Results.NotFound();
             }
 
-            var transactions = dbContext.Transactions.FirstOrDefault(transaction => transaction.ProductId == id);
-
-            if (transactions != null)
+            if (dbContext.Transactions.Any(transaction => transaction.ProductId == id))
             {
                 return Results.BadRequest("Cannot delete a product with saved transactions");
             }

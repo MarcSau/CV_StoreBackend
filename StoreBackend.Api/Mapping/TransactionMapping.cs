@@ -5,18 +5,6 @@ namespace StoreBackend.Api.Mapping;
 
 public static class TransactionMapping
 {
-    public static Transaction ToTransactionEntity(this PurchaseTransactionDTO purchaseDTO)
-    {
-        Transaction transaction = new()
-        {
-            ProductId = purchaseDTO.productId,
-            Amount = purchaseDTO.amount,
-            Price = purchaseDTO.price,
-            Date = purchaseDTO.date
-        };
-
-        return transaction;
-    }
 
     public static TransactionSummaryDTO ToTransactionDTO(this Transaction purchaseDTO)
     {
@@ -28,5 +16,16 @@ public static class TransactionMapping
         );
 
         return transactionDTO;
+    }
+
+    public static Transaction ToTransactionEntity(this PurchaseTransactionDTO purchaseDTO)
+    {
+        return new Transaction()
+        {
+            ProductId = purchaseDTO.productId,
+            Amount = purchaseDTO.amount,
+            Price = purchaseDTO.price,
+            Date = purchaseDTO.date
+        };
     }
 }

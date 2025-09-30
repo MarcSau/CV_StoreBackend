@@ -1,4 +1,3 @@
-using System;
 using StoreBackend.Api.DTOs;
 using StoreBackend.Api.Entities;
 
@@ -8,8 +7,7 @@ public static class ProductTypeMapping
 {
     public static ProductTypeSummaryDTO ToProductTypeDTO(this ProductType product)
     {
-        ProductTypeSummaryDTO productDTO = new(product.ID,product.Name);
-
+        ProductTypeSummaryDTO productDTO = new(product.ID, product.Name);
         return productDTO;
     }
 

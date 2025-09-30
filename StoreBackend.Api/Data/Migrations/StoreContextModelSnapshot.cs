@@ -33,12 +33,12 @@ namespace StoreBackend.Api.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("productTypeId")
+                    b.Property<int>("ProductTypeId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("productTypeId");
+                    b.HasIndex("ProductTypeId");
 
                     b.ToTable("Products");
 
@@ -49,7 +49,7 @@ namespace StoreBackend.Api.Data.Migrations
                             CurrentStock = 25,
                             Name = "DnD 2025 Rulebook",
                             Price = 29.989999999999998,
-                            productTypeId = 2
+                            ProductTypeId = 2
                         },
                         new
                         {
@@ -57,15 +57,15 @@ namespace StoreBackend.Api.Data.Migrations
                             CurrentStock = 25,
                             Name = "Monopoly",
                             Price = 19.989999999999998,
-                            productTypeId = 1
+                            ProductTypeId = 1
                         },
                         new
                         {
                             ID = 3,
                             CurrentStock = 25,
-                            Name = "GTA6",
+                            Name = "Grand Theft Auto 6",
                             Price = 79.989999999999995,
-                            productTypeId = 3
+                            ProductTypeId = 3
                         });
                 });
 
@@ -145,7 +145,7 @@ namespace StoreBackend.Api.Data.Migrations
                 {
                     b.HasOne("StoreBackend.Api.Entities.ProductType", "ProductType")
                         .WithMany()
-                        .HasForeignKey("productTypeId")
+                        .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

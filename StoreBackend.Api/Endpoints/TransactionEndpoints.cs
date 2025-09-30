@@ -30,7 +30,6 @@ public static class TransactionEndpoints
             }
 
             return Results.Ok(transaction.ToTransactionDTO());
-
         }).WithName(GetNameEndpointName);
 
         group.MapPost("/", (PurchaseTransactionDTO purchase, StoreContext dbContext) =>

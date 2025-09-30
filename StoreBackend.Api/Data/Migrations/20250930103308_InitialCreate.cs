@@ -35,14 +35,14 @@ namespace StoreBackend.Api.Data.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     CurrentStock = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<double>(type: "REAL", nullable: false),
-                    productTypeId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProductTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Products_ProductTypes_productTypeId",
-                        column: x => x.productTypeId,
+                        name: "FK_Products_ProductTypes_ProductTypeId",
+                        column: x => x.ProductTypeId,
                         principalTable: "ProductTypes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -85,18 +85,18 @@ namespace StoreBackend.Api.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ID", "CurrentStock", "Name", "Price", "productTypeId" },
+                columns: new[] { "ID", "CurrentStock", "Name", "Price", "ProductTypeId" },
                 values: new object[,]
                 {
                     { 1, 25, "DnD 2025 Rulebook", 29.989999999999998, 2 },
                     { 2, 25, "Monopoly", 19.989999999999998, 1 },
-                    { 3, 25, "GTA6", 79.989999999999995, 3 }
+                    { 3, 25, "Grand Theft Auto 6", 79.989999999999995, 3 }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_productTypeId",
+                name: "IX_Products_ProductTypeId",
                 table: "Products",
-                column: "productTypeId");
+                column: "ProductTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_ProductId",

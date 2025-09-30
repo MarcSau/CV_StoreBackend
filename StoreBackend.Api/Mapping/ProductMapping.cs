@@ -1,4 +1,3 @@
-using System;
 using StoreBackend.Api.DTOs;
 using StoreBackend.Api.Entities;
 
@@ -14,7 +13,7 @@ public static class ProductMapping
             product.Name,
             product.Price,
             product.CurrentStock,
-            product.productTypeId,
+            product.ProductTypeId,
             product.ProductType!.Name
         );
 
@@ -28,7 +27,7 @@ public static class ProductMapping
             Name = productDto.name,
             Price = productDto.price,
             CurrentStock = productDto.initialStock,
-            productTypeId = productDto.productType
+            ProductTypeId = productDto.productType
         };
     }
 
@@ -40,7 +39,7 @@ public static class ProductMapping
             Name = productDto.name,
             Price = productDto.price,
             CurrentStock = productDto.currentStock,
-            productTypeId = productDto.productType
+            ProductTypeId = productDto.productType
         };
     }
 }

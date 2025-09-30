@@ -15,9 +15,9 @@ public static class ProductTypeEndpoints
         group.MapGet("/", (StoreContext dbContext) =>
         {
             var productTypes = dbContext.ProductTypes.Select(type => type.ToProductTypeDTO()).ToList();
-            return productTypes;
+            return Results.Ok(productTypes);
         });
-        
+
         group.MapGet("/{id}", (int id, StoreContext dbContext) =>
         {
             var product = dbContext.ProductTypes.Where(product => product.ID == id).FirstOrDefault();
@@ -41,7 +41,7 @@ public static class ProductTypeEndpoints
             return Results.CreatedAtRoute(GetNameEndpointName, new { id = productType.ID }, productType.ToProductTypeDTO());
         });
 
-        group.MapDelete("/{id}", (int id,  StoreContext dbContext )=>
+        group.MapDelete("/{id}", (int id, StoreContext dbContext) =>
         {
             var elementToRemove = dbContext.ProductTypes.Where(product => product.ID == id).FirstOrDefault();
 
@@ -50,11 +50,9 @@ public static class ProductTypeEndpoints
                 return Results.NotFound();
             }
 
-            var product = dbContext.Products.FirstOrDefault(product => product.productTypeId == id);
-
-            if (product != null)
+            if (dbContext.Products.Any(product => product.ProductTypeId == id))
             {
-                return Results.BadRequest("Cannot delete a product type that is on use by products");
+                return Results.BadRequest("Cannot delete a product type that is being used by products");
             }
 
             dbContext.ProductTypes.Remove(elementToRemove);
