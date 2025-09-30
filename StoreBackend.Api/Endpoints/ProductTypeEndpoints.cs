@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-using Microsoft.EntityFrameworkCore;
 using StoreBackend.Api.Data;
 using StoreBackend.Api.DTOs;
 using StoreBackend.Api.Entities;
@@ -50,6 +48,13 @@ public static class ProductTypeEndpoints
             if (elementToRemove == null)
             {
                 return Results.NotFound();
+            }
+
+            var product = dbContext.Products.FirstOrDefault(product => product.productTypeId == id);
+
+            if (product != null)
+            {
+                return Results.BadRequest("Cannot delete a product type that is on use by products");
             }
 
             dbContext.ProductTypes.Remove(elementToRemove);

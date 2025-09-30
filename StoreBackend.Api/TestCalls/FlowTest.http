@@ -1,0 +1,77 @@
+GET http://localhost:5278/product/
+
+###
+DELETE http://localhost:5278/productType/2
+
+###
+GET http://localhost:5278/productType
+
+###
+DELETE http://localhost:5278/productType/5
+
+###
+GET http://localhost:5278/productType
+
+###
+POST http://localhost:5278/product/
+Content-Type: application/json
+
+{
+    "name": "Blov",
+    "initialStock": 20,
+    "price": 15.99,
+    "productType": 3
+}
+
+###
+POST http://localhost:5278/product/
+Content-Type: application/json
+
+{
+    "name": "BlueDabiDi",
+    "initialStock": 20,
+    "price": 17.99,
+    "productType": 4
+}
+
+###
+Post http://localhost:5278/transaction/
+Content-Type: application/json
+
+{
+    "productId": 2,
+    "amount" : 2,
+    "price" : 30.99,
+    "date": "2025-11-18"
+}
+
+###
+GET http://localhost:5278/transaction/
+
+###
+DELETE http://localhost:5278/product/2
+
+###
+DELETE http://localhost:5278/product/3
+###
+Post http://localhost:5278/transaction/
+Content-Type: application/json
+
+{
+    "productId": 1,
+    "amount" : 73,
+    "price" : 19.99,
+    "date": "2025-11-18"
+}
+
+###
+POST http://localhost:5278/productType/
+Content-Type: application/json
+
+{
+    "name": "Toys"
+}
+
+###
+
+DELETE http://localhost:5278/productType/7

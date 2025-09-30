@@ -20,8 +20,10 @@ public class StoreContext(DbContextOptions<StoreContext> options) : DbContext(op
         );
 
         modelBuilder.Entity<Product>().HasData(
-            new {ID = 1, Name = "DnD 2025 Rulebook", CurrentStock = 25, Price = 29.99, productTypeId = 2}
+            new {ID = 1, Name = "DnD 2025 Rulebook", CurrentStock = 25, Price = 29.99, productTypeId = 2},
+            new {ID = 2, Name = "Monopoly", CurrentStock = 25, Price = 19.99, productTypeId = 1},
+            new {ID = 3, Name = "Grand Theft Auto 6", CurrentStock = 25, Price = 79.99, productTypeId = 3}
         );
-        
+    
     }
 }

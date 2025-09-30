@@ -50,6 +50,22 @@ namespace StoreBackend.Api.Data.Migrations
                             Name = "DnD 2025 Rulebook",
                             Price = 29.989999999999998,
                             productTypeId = 2
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CurrentStock = 25,
+                            Name = "Monopoly",
+                            Price = 19.989999999999998,
+                            productTypeId = 1
+                        },
+                        new
+                        {
+                            ID = 3,
+                            CurrentStock = 25,
+                            Name = "GTA6",
+                            Price = 79.989999999999995,
+                            productTypeId = 3
                         });
                 });
 

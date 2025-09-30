@@ -86,7 +86,12 @@ namespace StoreBackend.Api.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ID", "CurrentStock", "Name", "Price", "productTypeId" },
-                values: new object[] { 1, 25, "DnD 2025 Rulebook", 29.989999999999998, 2 });
+                values: new object[,]
+                {
+                    { 1, 25, "DnD 2025 Rulebook", 29.989999999999998, 2 },
+                    { 2, 25, "Monopoly", 19.989999999999998, 1 },
+                    { 3, 25, "GTA6", 79.989999999999995, 3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_productTypeId",

@@ -46,7 +46,7 @@ public static class ProductEndpoints
 
         group.MapPut("/", (UpdateProductDTO updatedProductDto, StoreContext dbContext) =>
         {
-            var product = dbContext.Products.First(product => product.ID == updatedProductDto.id);
+            var product = dbContext.Products.FirstOrDefault(product => product.ID == updatedProductDto.id);
 
             if (product == null)
             {
@@ -61,11 +61,18 @@ public static class ProductEndpoints
 
         group.MapDelete("/{id}", (int id, StoreContext dbContext) =>
         {
-            var product = dbContext.Products.First(product => product.ID == id);
+            var product = dbContext.Products.FirstOrDefault(product => product.ID == id);
 
             if (product == null)
             {
                 return Results.NotFound();
+            }
+
+            var transactions = dbContext.Transactions.FirstOrDefault(transaction => transaction.ProductId == id);
+
+            if (transactions != null)
+            {
+                return Results.BadRequest("Cannot delete a product with saved transactions");
             }
 
             dbContext.Products.Remove(product);
