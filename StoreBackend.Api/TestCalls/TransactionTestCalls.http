@@ -1,0 +1,15 @@
+GET http://localhost:5278/transaction/
+
+###
+GET http://localhost:5278/transaction/1
+
+###
+Post http://localhost:5278/transaction/
+Content-Type: application/json
+
+{
+    "productId": 1,
+    "amount" : 2,
+    "price" : 19.99,
+    "date": "2025-11-18"
+}

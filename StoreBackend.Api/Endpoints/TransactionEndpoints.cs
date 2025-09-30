@@ -15,9 +15,9 @@ public static class TransactionEndpoints
 
         group.MapGet("/", (StoreContext dbContext) =>
         {
-            var transactions = dbContext.Transactions.Include(transaction => transaction.Product).ThenInclude(product => product.ProductType).Select(transaction => transaction.ToTransactionDTO());
+            var transactions = dbContext.Transactions.Include(transaction => transaction.Product).ThenInclude(product => product.ProductType).Select(transaction => transaction.ToTransactionDTO()).ToList();
 
-            return transactions;
+            return Results.Ok(transactions);
         });
 
         group.MapGet("/{id}", (int id, StoreContext dbContext) =>
@@ -37,10 +37,23 @@ public static class TransactionEndpoints
         {
             Transaction transaction = purchase.ToTransactionEntity();
 
+            var purchasedProduct = dbContext.Products.Where(product => product.ID == purchase.productId).FirstOrDefault();
+
+            if (purchasedProduct == null)
+            {
+                return Results.NotFound();
+            }
+
+            if (purchasedProduct.CurrentStock < transaction.Amount)
+            {
+                return Results.BadRequest("Not enough stock available");
+            }
+
             dbContext.Transactions.Add(transaction);
+            purchasedProduct.CurrentStock -= purchase.amount;
             dbContext.SaveChanges();
 
-            Results.CreatedAtRoute(GetNameEndpointName, new { id = transaction.ID }, transaction.ToTransactionDTO());
+            return Results.CreatedAtRoute(GetNameEndpointName, new { id = transaction.ID }, transaction.ToTransactionDTO());
         });
     }
 }
